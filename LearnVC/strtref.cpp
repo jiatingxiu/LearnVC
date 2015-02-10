@@ -12,26 +12,26 @@ struct sysop
 
 const sysop & use(sysop&sysopref);
 
-int main()
-{
-	sysop looper =
-	{
-		"Rick \"Fortran\" Looper",
-		"I'm a goto kind of guy.",
-		0
-	};
-
-	use(looper);
-	cout << "Looper: " << looper.used << " use(s)\n";
-	sysop copycat;
-	copycat = use(looper);
-	cout << "Looper: " << looper.used << " use(s)\n";
-	cout << "Copycat: " << copycat.used << " use(s)\n";
-	cout << "use(looper): " << use(looper).used << " use(s)\n";
-
-	cin.get();
-	return 0;
-}
+//int main()
+//{
+//	sysop looper =
+//	{
+//		"Rick \"Fortran\" Looper",
+//		"I'm a goto kind of guy.",
+//		0
+//	};
+//
+//	use(looper);
+//	cout << "Looper: " << looper.used << " use(s)\n";
+//	sysop copycat;
+//	copycat = use(looper);
+//	cout << "Looper: " << looper.used << " use(s)\n";
+//	cout << "Copycat: " << copycat.used << " use(s)\n";
+//	cout << "use(looper): " << use(looper).used << " use(s)\n";
+//
+//	cin.get();
+//	return 0;
+//}
 
 const sysop & use(sysop&sysopref)
 {
