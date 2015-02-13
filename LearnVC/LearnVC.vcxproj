@@ -85,8 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="calling.cpp" />
+    <ClCompile Include="filefunc.cpp" />
+    <ClCompile Include="funtemp.cpp" />
     <ClCompile Include="fun_ptr.cpp" />
     <ClCompile Include="LearnVC.cpp" />
+    <ClCompile Include="leftover.cpp" />
     <ClCompile Include="protos.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -97,6 +100,7 @@
     <ClCompile Include="strtref.cpp" />
     <ClCompile Include="swaps.cpp" />
     <ClCompile Include="travel.cpp" />
+    <ClCompile Include="twoswap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

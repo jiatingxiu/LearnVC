@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,7 @@ namespace LearnWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static event Action WpfLanguageChanged;
         BitmapSource _BitmapSource;
 
         public MainWindow()
@@ -37,30 +39,38 @@ namespace LearnWPF
 
             this.Loaded += MainWindow_Loaded;
 
+            Title = "SystemSetting";
+
+            MyClass1 myClass1 = new MyClass1();
+            MyClass2 myClass2 = new MyClass2();
+            MyClass3 myClass3 = new MyClass3();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            System.Windows.Point point = content.TranslatePoint(new System.Windows.Point(), image);
-            CroppedBitmap croppedBitmap = new CroppedBitmap(_BitmapSource, new Int32Rect((int)point.X, (int)point.Y, (int)content.ActualWidth, (int)content.ActualHeight));
+            var dpiProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
+            var dpi = dpiProperty == null ? 120 : (int)dpiProperty.GetValue(null, null);
+
+            System.Windows.Vector point = border.TranslatePoint(new System.Windows.Point(), image) - new System.Windows.Point(-10, -10);
+            CroppedBitmap croppedBitmap = new CroppedBitmap(_BitmapSource, new Int32Rect((int)(point.X / 98 * dpi), (int)(point.Y / 98 * dpi), (int)(content.ActualWidth / 98 * dpi), (int)(content.ActualHeight / 98 * dpi)));
 
             border.Background = new ImageBrush(croppedBitmap);
         }
 
         private static BitmapSource CopyScreen()
         {
-            var left = Screen.AllScreens.Min(screen => screen.Bounds.X);
-            var top = Screen.AllScreens.Min(screen => screen.Bounds.Y);
-            var right = Screen.AllScreens.Max(screen => screen.Bounds.X + screen.Bounds.Width);
-            var bottom = Screen.AllScreens.Max(screen => screen.Bounds.Y + screen.Bounds.Height);
-            var width = right - left;
-            var height = bottom - top;
+            System.Windows.Forms.Screen[] screens = System.Windows.Forms.Screen.AllScreens;
+            System.Windows.Forms.Screen PrimaryScreen = screens[0];
+            if (!PrimaryScreen.Primary) return null;
+
+            var width = PrimaryScreen.Bounds.Width;
+            var height = PrimaryScreen.Bounds.Height;
 
             using (var screenBmp = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb))
             {
                 using (var bmpGraphics = Graphics.FromImage(screenBmp))
                 {
-                    bmpGraphics.CopyFromScreen(left, top, 0, 0, new System.Drawing.Size(width, height));
+                    bmpGraphics.CopyFromScreen(0, 0, 0, 0, new System.Drawing.Size(width, height));
                     return Imaging.CreateBitmapSourceFromHBitmap(
                         screenBmp.GetHbitmap(),
                         IntPtr.Zero,
@@ -68,6 +78,51 @@ namespace LearnWPF
                         BitmapSizeOptions.FromEmptyOptions());
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (WpfLanguageChanged != null)
+                WpfLanguageChanged();
+        }
+    }
+
+    class MyClass1
+    {
+        public MyClass1()
+        {
+            MainWindow.WpfLanguageChanged += MainWindow_WpfLanguageChanged;
+        }
+
+        void MainWindow_WpfLanguageChanged()
+        {
+
+        }
+    }
+
+    class MyClass2
+    {
+        public MyClass2()
+        {
+            MainWindow.WpfLanguageChanged += MainWindow_WpfLanguageChanged;
+        }
+
+        void MainWindow_WpfLanguageChanged()
+        {
+
+        }
+    }
+
+    class MyClass3
+    {
+        public MyClass3()
+        {
+            MainWindow.WpfLanguageChanged += MainWindow_WpfLanguageChanged;
+        }
+
+        void MainWindow_WpfLanguageChanged()
+        {
+
         }
     }
 }

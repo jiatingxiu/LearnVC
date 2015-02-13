@@ -59,5 +59,17 @@
     <ClCompile Include="strquote.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="filefunc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="leftover.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="funtemp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="twoswap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
