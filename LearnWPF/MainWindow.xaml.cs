@@ -51,8 +51,10 @@ namespace LearnWPF
             var dpiProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
             var dpi = dpiProperty == null ? 120 : (int)dpiProperty.GetValue(null, null);
 
-            System.Windows.Vector point = border.TranslatePoint(new System.Windows.Point(), image) - new System.Windows.Point(-10, -10);
-            CroppedBitmap croppedBitmap = new CroppedBitmap(_BitmapSource, new Int32Rect((int)(point.X / 98 * dpi), (int)(point.Y / 98 * dpi), (int)(content.ActualWidth / 98 * dpi), (int)(content.ActualHeight / 98 * dpi)));
+            viewBox.Width = grid.ActualWidth * 98 / dpi;
+
+            //System.Windows.Vector point = viewBox.TranslatePoint(new System.Windows.Point(), image) - new System.Windows.Point(-10, -10);
+            CroppedBitmap croppedBitmap = new CroppedBitmap(_BitmapSource, new Int32Rect((int)((1920 - grid.ActualWidth) / 2 ), (int)((1080 - grid.ActualHeight) / 2 ), (int)(grid.ActualWidth ), (int)(grid.ActualHeight )));
 
             border.Background = new ImageBrush(croppedBitmap);
         }

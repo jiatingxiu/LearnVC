@@ -10,11 +10,18 @@
         Title="MainWindow" >
     <Grid>
         <Image x:Name="image"/>
+        <Grid>
+            <Border>
+                <Border.Effect>
+                    <BlurEffect Radius="15" KernelType="Gaussian"/>
+                </Border.Effect>
+                <Border.Background>
+                    <VisualBrush Visual="{Binding ElementName=image}"/>
+                </Border.Background>
+            </Border>
+            <!--<Border Background="Black" Opacity="0.5"/>-->
+        </Grid>
         <Grid Name="content" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
             <i:Interaction.Behaviors>
                 <ei:MouseDragElementBehavior/>
             </i:Interaction.Behaviors>
@@ -25,36 +32,45 @@
                 </Grid.Effect>
                 <Border x:Name="border" BorderThickness="0" CornerRadius="10" />
             </Grid>
-            <Border Grid.RowSpan="2" Background="#FF191919" BorderBrush="#FF5A5A5A" Opacity="0.5" BorderThickness="1" CornerRadius="10">
+            <Border Grid.RowSpan="2" Background="#444444" BorderBrush="#FF5A5A5A" Opacity="0.3" BorderThickness="1" CornerRadius="10">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="30"/>
                 </Border.Effect>
             </Border>
-            <Grid Grid.Row="0" Height="40" Margin="1,0" VerticalAlignment="Top">
-                <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="10,10,0,0" Background="Transparent"/>
-                <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="10,10,0,0" Margin="0,0.5,0,0">
-                    <Border.Effect>
-                        <DropShadowEffect Color="#FFB6B1B1" BlurRadius="1" ShadowDepth="0.5" Direction="90" />
-                    </Border.Effect>
-                    <Border.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="#FF181C1F" Offset="0.931"/>
-                            <GradientStop Color="#FF3D464F" Offset="0.06"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <TextBlock HorizontalAlignment="Left" Text="{Binding ElementName=window,Path=Title}" VerticalAlignment="Center" Foreground="#FFFF9F41" FontSize="21.333" FontFamily="Microsoft YaHei" Margin="15,0,0,0"/>
-                </Border>
-            </Grid>
-            <ContentControl Grid.Row="1">
-                <Grid>
-                    <Border VerticalAlignment="Top" Margin="124,116,144,0">
-                        <TextBlock Text="Please Wait" FontSize="60" Foreground="#FF6063AE" />
-                    </Border>
+            <Viewbox Name="viewBox">
+                <Grid Name="grid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Height="40" Margin="1,0" VerticalAlignment="Top">
+                        <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="10,10,0,0" Background="Transparent"/>
+                        <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="10,10,0,0" Margin="0,0.5,0,0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFB6B1B1" BlurRadius="1" ShadowDepth="0.5" Direction="90" />
+                            </Border.Effect>
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF181C1F" Offset="0.931"/>
+                                    <GradientStop Color="#FF3D464F" Offset="0.06"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding ElementName=window,Path=Title}" VerticalAlignment="Center" Foreground="#FFFF9F41" FontSize="21.333" FontFamily="Microsoft YaHei" Margin="15,0,0,0"/>
+                        </Border>
+                    </Grid>
+                    <ContentControl Grid.Row="1">
+                        <Grid>
+                            <Border VerticalAlignment="Top" Margin="124,116,144,0">
+                                <TextBlock Text="Please Wait" FontSize="60" Foreground="#FF6063AE" />
+                            </Border>
 
-                    <TextBox AcceptsReturn="True" Width="500" Height="30" Margin="48,213,52,67" Text="asdfasdfasd"/>
-                    <Button Content="Button" HorizontalAlignment="Left" Margin="264,70,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                            <TextBox AcceptsReturn="True" Width="500" Height="30" Margin="48,213,52,67" Text="asdfasdfasd"/>
+                            <Button Content="Button" HorizontalAlignment="Left" Margin="264,70,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                            <ProgressBar Height="25" Margin="85,22.5,65,0" VerticalAlignment="Top" Value="100"/>
+                        </Grid>
+                    </ContentControl>
                 </Grid>
-            </ContentControl>
+            </Viewbox>
         </Grid>
     </Grid>
 </Window>
